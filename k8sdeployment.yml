@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dockerhub 
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: dockerhub
+  template:
+    metadata:
+      labels:
+        app: dockerhub
+    spec:
+      containers:
+        - name: dockerhub
+          image: yashwanthg2002/testk8sdevops
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dockerhub
+spec:
+  selector:
+    app: dockerhub
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
